@@ -1,7 +1,5 @@
 package lab4;
 
-import com.sun.xml.internal.ws.util.StringUtils;
-
 import java.util.regex.*;
 
 public class MicroDVD {
@@ -14,9 +12,8 @@ public class MicroDVD {
         Pattern pattern_rest = Pattern.compile("\\}[^\\{]+");
         Matcher matcher = pattern.matcher(in);
         Matcher matcher_rest = pattern_rest.matcher(in);
-        String partOfText = new String();
+        String partOfText;
         int[] values = new int[2];
-        String currentLineResult = new String();
         int i = 0;
         while (matcher.find()) {
             partOfText = matcher.group();
@@ -41,12 +38,8 @@ public class MicroDVD {
 
             System.out.println(partOfText);
         }
-        String out = new String();
-        if (matcher_rest.find()) {
-            out = "{" + values[0] + "}" + "{" + values[1] + matcher_rest.group();
-//                        out.replaceAll(partOfText, "{" + values[0] + "}" +
-//                                "{" + values[1] + "}");
-        }
+        matcher_rest.find();
+        String out = "{" + values[0] + "}" + "{" + values[1] + matcher_rest.group();
         return out;
     }
 }
