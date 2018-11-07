@@ -7,7 +7,7 @@ public class Heap<T extends Comparable> implements Comparator<T>{
 
 	private int heapSize = 0;
 	private ArrayList<T> tab = new ArrayList<>();
-	boolean isMaxFirst;
+	private boolean isMaxFirst;
 
 	public Heap(boolean isMaxFirst_) {
 		isMaxFirst = isMaxFirst_;
