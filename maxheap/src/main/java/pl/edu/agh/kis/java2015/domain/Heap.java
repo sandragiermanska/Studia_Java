@@ -1,13 +1,19 @@
 package pl.edu.agh.kis.java2015.domain;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
-public class Heap {
+public class Heap<T extends Comparable> implements Comparator<T>{
 
 	private int heapSize = 0;
-	private ArrayList<Double> tab = new ArrayList<>();
+	private ArrayList<T> tab = new ArrayList<>();
+	boolean isMaxFirst;
 
-	public void insert(double value) {
+	public Heap(boolean isMaxFirst_) {
+		isMaxFirst = isMaxFirst_;
+	}
+
+	public void insert(T value) {
 		int currentIndex = heapSize;
 		int parentIndex = parentIndex(currentIndex);
 		tab.add(value);
@@ -28,20 +34,20 @@ public class Heap {
 
 	public boolean isChildGreaterThanParent(int currentIndex, int parentIndex) {
 		if(isInHeap(currentIndex) && isInHeap(parentIndex)) {
-			return tab.get(currentIndex) > tab.get(parentIndex);
+			return compare(tab.get(currentIndex), tab.get(parentIndex)) > 0;
 		}
 		return false;
 	}
 
 	public void swapElements(int currentIndex, int parentIndex) {
-		Double parentValue = parentValue(currentIndex);
-		Double currentValue = tab.get(currentIndex);
+		T parentValue = parentValue(currentIndex);
+		T currentValue = tab.get(currentIndex);
 		tab.set(parentIndex, currentValue);
 		tab.set(currentIndex, parentValue);
 	}
 
-	public Double parentValue(int currentIndex) {
-		Double parentValue = tab.get(parentIndex(currentIndex));
+	public T parentValue(int currentIndex) {
+		T parentValue = tab.get(parentIndex(currentIndex));
 		return parentValue;
 	}
 
@@ -49,7 +55,7 @@ public class Heap {
 		return currentIndex * 2 + 1;
 	}
 
-	public Double leftChildValue(int currentIndex) {
+	public T leftChildValue(int currentIndex) {
 		return tab.get(leftChildIndex(currentIndex));
 	}
 
@@ -57,7 +63,7 @@ public class Heap {
 		return currentIndex * 2 + 2;
 	}
 
-	public Double rightChildValue(int currentIndex) {
+	public T rightChildValue(int currentIndex) {
 		return tab.get(rightChildIndex(currentIndex));
 	}
 
@@ -69,36 +75,39 @@ public class Heap {
 		return heapSize ;
 	}
 
-	public double top() {
+	public T top() {
 		return tab.get(0);
 	}
 
-	public double extractMax() {
-		double result = top();
+	public T extractMax() {
+		T result = top();
 		if(deleteMax()) {
 			return result;
 		}
-		return -1;
+		return null;
 	}
+
 	public void restoreHeap() {
-		double changedValue = tab.get(0);
-		int currentIndex = 0;
-		int leftChildIndex = leftChildIndex(currentIndex);
-		int rightChildIndex = rightChildIndex(currentIndex);
-		if (isInHeap(leftChildIndex))
-		while( isInHeap(leftChildIndex)) {
-			if(isChildGreaterThanParent(leftChildIndex, currentIndex)) {
-				swapElements(leftChildIndex, currentIndex);
-				currentIndex = leftChildIndex;
-			} else if (isInHeap(rightChildIndex) && isChildGreaterThanParent(rightChildIndex,
-					currentIndex)) {
-				swapElements(rightChildIndex, currentIndex);
-				currentIndex = rightChildIndex;
-			} else {
-				break;
-			}
-			leftChildIndex = leftChildIndex(currentIndex);
-			rightChildIndex = rightChildIndex(currentIndex);
+		if (heapSize > 0) {
+			T changedValue = tab.get(0);
+			int currentIndex = 0;
+			int leftChildIndex = leftChildIndex(currentIndex);
+			int rightChildIndex = rightChildIndex(currentIndex);
+			if (isInHeap(leftChildIndex))
+				while (isInHeap(leftChildIndex)) {
+					if (isChildGreaterThanParent(leftChildIndex, currentIndex)) {
+						swapElements(leftChildIndex, currentIndex);
+						currentIndex = leftChildIndex;
+					} else if (isInHeap(rightChildIndex) && isChildGreaterThanParent(rightChildIndex,
+							currentIndex)) {
+						swapElements(rightChildIndex, currentIndex);
+						currentIndex = rightChildIndex;
+					} else {
+						break;
+					}
+					leftChildIndex = leftChildIndex(currentIndex);
+					rightChildIndex = rightChildIndex(currentIndex);
+				}
 		}
 	}
 
@@ -114,7 +123,7 @@ public class Heap {
 		return result;
 	}
 
-	public boolean replace(double newValue) {
+	public boolean replace(T newValue) {
 		boolean result = false;
 		if(heapSize > 0) {
 			tab.set(0, newValue);
@@ -124,18 +133,26 @@ public class Heap {
 		return result;
 	}
 
-	public void heapify(ArrayList<Double> array) {
+	public void heapify(ArrayList<T> array) {
 		int size = array.size();
 		for (int i = 0; i < size; i++) {
 			insert(array.get(i));
 		}
 	}
 
-	public boolean merge(Heap newHeap) {
-		return false;
+	public void meld(Heap newHeap) {
+		T current;
+		while (newHeap.size() > 0) {
+			current = (T) newHeap.extractMax();
+			insert(current);
+		}
 	}
 
-	public boolean meld(Heap newHeap) {
-		return false;
+	@Override
+	public int compare(T o1, T o2) {
+		if (isMaxFirst) {
+			return o1.compareTo(o2);
+		}
+		return -o1.compareTo(o2);
 	}
 }
