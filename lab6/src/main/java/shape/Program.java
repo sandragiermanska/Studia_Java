@@ -1,25 +1,20 @@
 package shape;
 
-
 import javax.swing.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class Program extends JFrame {
 
+    private MyPanel panel = new MyPanel();
+
     public static void main(String [] argv) {
-        Program program = new Program();
-        MyPanel panel = new MyPanel();
-        program.setSize(450, 450);
-        program.setVisible(true);
-        program.add(panel);
-
-        program.addWindowListener(new WindowAdapter(){
-            public void windowClosing(WindowEvent we){
-                System.exit(0);
-            }
-        });
-
+        new Program();
     }
 
+    public Program() {
+        super("Shape");
+        setSize(500, 500);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        add(panel);
+        setVisible(true);
+    }
 }

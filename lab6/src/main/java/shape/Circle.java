@@ -1,34 +1,35 @@
 package shape;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 
 public class Circle extends Shape{
 
-    int size;
-    String name;
-    int posX;
-    int posY;
+    private int size;
+    private Point leftUpPoint;
 
     public Circle(String name, int size, int posX, int posY) {
         this.name = name;
         this.size = size;
-        this.posX = posX;
-        this.posY = posY;
+        this.leftUpPoint = new Point(posX, posY);
     }
     
     @Override
     public void draw(Graphics graphics) {
-        Graphics2D graphics2D = (Graphics2D) graphics;
-        Ellipse2D e = new Ellipse2D.Double(posX, posY, size, size);
-        graphics2D.draw(e);
+        graphics.setColor(Color.BLUE);
+        graphics.fillOval(leftUpPoint.x, leftUpPoint.y, size, size);
+    }
 
-        GradientPaint gp = new GradientPaint(posX-size/2, posY-size/2, Color.red,posX+size/2, posY+size/2, Color.blue, false);
-        // Fill with a gradient.
-        graphics2D.setPaint(gp);
-        graphics2D.fill(e);
+    public boolean isInShape(Point cursor) {
+        boolean result = false;
+        if (cursor.x >= leftUpPoint.x && cursor.x <= leftUpPoint.x + size &&
+                cursor.y >= leftUpPoint.y && cursor.y <= leftUpPoint.y + size) {
+            result = true;
+        }
+        return result;
+    }
 
-        graphics2D.draw(e);
-
+    public void move(int xMove, int yMove) {
+        leftUpPoint.x += xMove;
+        leftUpPoint.y += yMove;
     }
 }
