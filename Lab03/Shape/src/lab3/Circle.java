@@ -7,7 +7,7 @@ public class Circle extends Shape{
         this.name = name;
         this.size = size;
     }
-    
+
     @Override
     public void draw() {
         for (int i = 0; i < size; i++) {

@@ -39,12 +39,12 @@ public class EmailMessage {
 
     //Przykładowy konstruktor (można założyć, że pola opcjonalne mogą być null)
     protected EmailMessage(String from,
-                        LinkedList<String> to,
-                        String subject,
-                        String content,
-                        String mimeType ,
-                        LinkedList<String> cc,
-                        LinkedList<String> bcc){
+                           LinkedList<String> to,
+                           String subject,
+                           String content,
+                           String mimeType ,
+                           LinkedList<String> cc,
+                           LinkedList<String> bcc){
         // wiele if, else, sprawdzania czy string jest e-mail, itd.
     }
 
