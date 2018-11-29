@@ -13,8 +13,8 @@ public class Main {
             Scanner in = new Scanner(file);
             PrintWriter saving = new PrintWriter("text.txt");
             while (in.hasNext()) {
-                    String text = in.nextLine();
-                    String result = new String();
+                String text = in.nextLine();
+                String result = new String();
                 try {
                     result = MicroDVD.delay(text,2500,25);
                 } catch (WrongCharacter e) {
