@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/lab6_wielomian.iml" filepath="$PROJECT_DIR$/lab6_wielomian.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Wielomian.iml" filepath="$PROJECT_DIR$/Wielomian.iml" />
     </modules>
   </component>
 </project>
