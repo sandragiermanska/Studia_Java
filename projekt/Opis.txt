@@ -1,0 +1,10 @@
+Projekt przedstawia krzyówkę na bazie projektu ze strony Michała Wypycha.
+Implementuje dwie strategie krzyówki: poziome słowa z pionowym hasłem oraz
+krzyówkę mieszaną z krzyżującymi się wyrazami.
+
+Po prezentacji projektu tydzień temu poprawiłam czytelność kodu oraz rozwiązałam
+jeszcze kilka błędów. Dodałam serializację dzięki czemu można zapisywać i odczytywać
+krzyżówki już wygenerowane. Dodałam także przycisk do walidacji, który sprawdza
+poprawność całej krzyżówki. Zajęłam się też sterowaniem przy wpisywaniu, aby po wpisaniu
+litery kursor przeszedł do następnego pola.
+Dodałam też dokumentację.
